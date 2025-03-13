@@ -1,22 +1,20 @@
 package com.orgmange;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FormatEmployees {
     private List<Employee> fillEmployees(){
-        List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee("Иван Иванов", 20, "IT", 50000.0));
-        employees.add(new Employee("Петр Петров", 30, "HR", 60000.0));
-        employees.add(new Employee("Анна Снатко", 35, "Finance", 70000.0));
-        employees.add(new Employee("Илья Балахнин", 37, "Marketing", 55000.0));
-        employees.add(new Employee("Татьяна Ким", 49, "Sales", 65000.0));
-        return employees;
+        return List.of(new Employee("Иван Иванов", 20, "IT", 50000.0),
+        new Employee("Петр Петров", 30, "HR", 60000.0),
+        new Employee("Анна Снатко", 35, "Finance", 70000.0),
+        new Employee("Илья Балахнин", 37, "Marketing", 55000.0),
+        new Employee("Татьяна Ким", 49, "Sales", 65000.0));
     }
 
     private List<String> format(List<Employee> employees){
         return employees.stream()
-                .map(employee -> "%s - %s".formatted(employee.getFullName(), employee.getDepartment())).toList();
+                .map(Employee::toString)
+                .toList();
     }
 
     public void run(){
@@ -67,5 +65,10 @@ class Employee{
 
     public void setSalary(Double salary) {
         this.salary = salary;
+    }
+
+    @Override
+    public String toString(){
+        return "%s - %s".formatted(fullName, department);
     }
 }

@@ -1,6 +1,7 @@
 package com.orgmange;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Random;
 
 public class LastPositiveFinder {
@@ -20,24 +21,23 @@ public class LastPositiveFinder {
         return arr;
     }
 
-    private int findLastPositive(int[] array){
+    private Optional<Integer> findLastPositive(int[] array){
         for(int i = array.length-1; i >= 0; i--){
             if(array[i] > 0)
-                return array[i];
+                return Optional.of(array[i]);
         }
-        return -1;
+        return Optional.empty();
     }
 
     public void run(){
         int[] arr = createArray();
-        int lastPositive = findLastPositive(arr);
-        String answer = lastPositive == -1
-                ? "Положительных числе в массиве нет!"
-                : "Последнее положительное число: " + lastPositive;
+        Optional<Integer> lastPositive = findLastPositive(arr);
+        System.out.println("Исходный массив: " + Arrays.toString(arr));
 
-        System.out.println("Исходный массив: "
-                + Arrays.toString(arr)
-                + "\n"
-                + answer);
+        if(lastPositive.isEmpty())
+            System.out.println("Положительных числе в массиве нет!");
+        else
+            System.out.println("Последнее положительное число: " + lastPositive.get());
+
     }
 }
